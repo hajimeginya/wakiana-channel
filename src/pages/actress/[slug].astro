@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { actresses, getActressBySlug, getActressStats, getWorksByActressSlug } from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return actresses.map((actress) => ({
+    params: { slug: actress.slug },
+  }));
+}
+
+const actress = getActressBySlug(Astro.params.slug ?? '');
+const stats = actress ? getActressStats(actress.slug) : null;
+const works = actress ? getWorksByActressSlug(actress.slug) : [];
+const wakiWorks = works.filter((work) => work.tags.some((tag) => ['脇', '脇舐め', '脇接写', 'ワキ汗'].includes(tag)));
+const analWorks = works.filter((work) => work.tags.some((tag) => ['アナル', 'アナル解禁', 'アナル舐め', 'アナルVR'].includes(tag)));
+---
+
+<BaseLayout
+  title={actress ? `${actress.name} | わきあなチャンネル` : '女優ページ | わきあなチャンネル'}
+  description={actress ? `${actress.name} の作品一覧です。` : '女優ページです。'}
+>
+  <main class="content-page">
+    <article class="content-panel">
+      {actress && stats ? (
+        <>
+          <p class="eyebrow">女優ページ</p>
+          <h1>{actress.name}</h1>
+          <p>{actress.kana}</p>
+
+          <div class="stats-grid">
+            <div class="stat">
+              <strong>{stats.workCount}</strong>
+              <span>作品数</span>
+            </div>
+            <div class="stat">
+              <strong>{stats.wakiCount}</strong>
+              <span>脇作品数</span>
+            </div>
+            <div class="stat">
+              <strong>{stats.analCount}</strong>
+              <span>アナル作品数</span>
+            </div>
+          </div>
+
+          <section class="subsection">
+            <div class="section-head compact">
+              <div>
+                <h2>作品一覧</h2>
+              </div>
+            </div>
+            <div class="card-grid">
+              {works.map((work) => (
+                <article class="panel work-card">
+                  <a class="work-link" href={`/works/${work.content_id}/`}>
+                    <img src={work.package_image_url} alt={work.title} />
+                    <h3>{work.title}</h3>
+                    <div class="meta">
+                      <span>{work.actresses.join(' / ')}</span>
+                    </div>
+                    <div class="tag-row">
+                      {work.tags.slice(0, 3).map((tag) => (
+                        <span class="chip">{tag}</span>
+                      ))}
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="subsection">
+            <div class="section-head compact">
+              <div>
+                <h2>脇作品</h2>
+              </div>
+            </div>
+            <div class="card-grid">
+              {wakiWorks.map((work) => (
+                <article class="panel work-card">
+                  <a class="work-link" href={`/works/${work.content_id}/`}>
+                    <img src={work.package_image_url} alt={work.title} />
+                    <h3>{work.title}</h3>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="subsection">
+            <div class="section-head compact">
+              <div>
+                <h2>アナル作品</h2>
+              </div>
+            </div>
+            <div class="card-grid">
+              {analWorks.map((work) => (
+                <article class="panel work-card">
+                  <a class="work-link" href={`/works/${work.content_id}/`}>
+                    <img src={work.package_image_url} alt={work.title} />
+                    <h3>{work.title}</h3>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        </>
+      ) : (
+        <>
+          <h1>女優が見つかりません</h1>
+          <p><a href="/actress/">女優一覧へ戻る</a></p>
+        </>
+      )}
+    </article>
+  </main>
+</BaseLayout>

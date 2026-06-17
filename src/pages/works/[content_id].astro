@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getRelatedWorks, getTagByLabel, getWorkByContentId, works, getActressByName } from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return works.map((work) => ({
+    params: { content_id: work.content_id },
+    props: { work },
+  }));
+}
+
+const { work } = Astro.props;
+const entry = work ?? getWorkByContentId(Astro.params.content_id ?? '');
+const relatedWorks = entry ? getRelatedWorks(entry, 4) : [];
+---
+
+<BaseLayout
+  title={entry ? `${entry.title} | わきあなチャンネル` : '作品詳細 | わきあなチャンネル'}
+  description={entry ? entry.description : 'わきあなチャンネルの作品詳細ページです。'}
+>
+  <main class="content-page">
+    <article class="content-panel detail-page">
+      {entry ? (
+        <>
+          <img class="detail-art" src={entry.package_image_url} alt={entry.title} />
+          <p class="eyebrow">作品詳細</p>
+          <h1>{entry.title}</h1>
+
+          <div class="detail-meta">
+            <div>
+              <span class="detail-label">女優</span>
+              <div class="detail-links">
+                {entry.actresses.map((name) => {
+                  const actress = getActressByName(name);
+                  return actress ? (
+                    <a href={`/actress/${actress.slug}/`}>{name}</a>
+                  ) : (
+                    <span>{name}</span>
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              <span class="detail-label">発売日</span>
+              <strong>{entry.release_date}</strong>
+            </div>
+            <div>
+              <span class="detail-label">メーカー</span>
+              <strong>{entry.maker}</strong>
+            </div>
+            <div>
+              <span class="detail-label">レーベル</span>
+              <strong>{entry.label}</strong>
+            </div>
+          </div>
+
+          <div class="tag-row">
+            {entry.tags.map((tag) => {
+              const tagInfo = getTagByLabel(tag);
+              return tagInfo ? (
+                <a class="chip chip-strong" href={`/tags/${tagInfo.slug}/`}>
+                  {tag}
+                </a>
+              ) : (
+                <span class="chip chip-strong">{tag}</span>
+              );
+            })}
+          </div>
+
+          <div class="sample-grid">
+            {entry.sample_image_urls.map((url) => (
+              <img src={url} alt={entry.title} />
+            ))}
+          </div>
+
+          <p>{entry.description}</p>
+
+          <section class="subsection">
+            <div class="section-head compact">
+              <div>
+                <h2>関連作品</h2>
+              </div>
+            </div>
+            <div class="related-grid">
+              {relatedWorks.map((related) => (
+                <article class="panel work-card">
+                  <a class="work-link" href={`/works/${related.content_id}/`}>
+                    <img src={related.package_image_url} alt={related.title} />
+                    <h3>{related.title}</h3>
+                    <div class="meta">
+                      <span>{related.actresses.join(' / ')}</span>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <div class="hero-actions">
+            <a class="button primary" href={entry.affiliate_url} target="_blank" rel="noreferrer">
+              FANZAで見る
+            </a>
+            <a class="button" href="/">トップページへ戻る</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <h1>作品が見つかりません</h1>
+          <p><a href="/">トップページへ戻る</a></p>
+        </>
+      )}
+    </article>
+  </main>
+</BaseLayout>

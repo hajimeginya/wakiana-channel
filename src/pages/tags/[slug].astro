@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getTagBySlug, getWorksByTagSlug, tags } from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return tags.map((tag) => ({
+    params: { slug: tag.slug },
+  }));
+}
+
+const tag = getTagBySlug(Astro.params.slug ?? '');
+const works = tag ? getWorksByTagSlug(tag.slug) : [];
+---
+
+<BaseLayout
+  title={tag ? `${tag.label} | わきあなチャンネル` : 'タグページ | わきあなチャンネル'}
+  description={tag ? tag.description : 'タグページです。'}
+>
+  <main class="content-page">
+    <article class="content-panel">
+      {tag ? (
+        <>
+          <p class="eyebrow">タグページ</p>
+          <h1>{tag.label}</h1>
+          <p>{tag.description}</p>
+          <p>{works.length}作品</p>
+          <div class="card-grid">
+            {works.map((work) => (
+              <article class="panel work-card">
+                <a class="work-link" href={`/works/${work.content_id}/`}>
+                  <img src={work.package_image_url} alt={work.title} />
+                  <h3>{work.title}</h3>
+                  <div class="meta">
+                    <span>{work.actresses.join(' / ')}</span>
+                  </div>
+                  <div class="tag-row">
+                    {work.tags.slice(0, 3).map((item) => (
+                      <span class="chip">{item}</span>
+                    ))}
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <h1>タグが見つかりません</h1>
+          <p><a href="/tags/">タグ一覧へ戻る</a></p>
+        </>
+      )}
+    </article>
+  </main>
+</BaseLayout>
