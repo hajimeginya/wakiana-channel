@@ -1,14 +1,16 @@
 [
-  { "slug": "waki", "label": "脇", "description": "脇に注目した作品をまとめるための基本タグです。" },
-  { "slug": "anal", "label": "アナル", "description": "アナル作品の入口になるタグです。" },
-  { "slug": "waki-name", "label": "脇舐め", "description": "脇を舐める描写を探すためのタグです。" },
-  { "slug": "waki-closeup", "label": "脇接写", "description": "脇の接写やクローズ寄りの作品を拾うためのタグです。" },
-  { "slug": "waki-sweat", "label": "ワキ汗", "description": "ワキ汗の見え方を楽しむためのタグです。" },
-  { "slug": "anal-open", "label": "アナル解禁", "description": "アナル解禁作品をまとめるためのタグです。" },
-  { "slug": "anal-name", "label": "アナル舐め", "description": "アナル舐め描写を含む作品のタグです。" },
-  { "slug": "anal-vr", "label": "アナルVR", "description": "VR視点で探すアナル作品のタグです。" },
-  { "slug": "kyonyu", "label": "巨乳", "description": "巨乳系の作品をまとめるためのタグです。" },
-  { "slug": "hitozuma", "label": "人妻", "description": "人妻系の作品を探すためのタグです。" },
-  { "slug": "chijo", "label": "痴女", "description": "痴女系の作品を拾うためのタグです。" },
-  { "slug": "vr", "label": "VR", "description": "VR作品の一覧に使うタグです。" }
+  { "name": "脇", "slug": "waki", "category": "waki", "description": "脇に注目した作品をまとめる基本タグです。" },
+  { "name": "脇舐め", "slug": "waki-lick", "category": "waki", "description": "脇を舐める描写を探すためのタグです。" },
+  { "name": "脇接写", "slug": "waki-closeup", "category": "waki", "description": "脇の接写やクローズ寄りの作品を拾うタグです。" },
+  { "name": "ワキ汗", "slug": "waki-sweat", "category": "waki", "description": "ワキ汗の見え方を楽しむためのタグです。" },
+  { "name": "アナル", "slug": "anal", "category": "anal", "description": "アナル作品の入口になる基本タグです。" },
+  { "name": "アナル解禁", "slug": "anal-open", "category": "anal", "description": "アナル解禁作品をまとめるためのタグです。" },
+  { "name": "アナル舐め", "slug": "anal-lick", "category": "anal", "description": "アナル舐め描写を含む作品のタグです。" },
+  { "name": "アナルVR", "slug": "anal-vr", "category": "anal", "description": "VR視点で探すアナル作品のタグです。" },
+  { "name": "巨乳", "slug": "kyonyu", "category": "other", "description": "巨乳系の作品をまとめるためのタグです。" },
+  { "name": "人妻", "slug": "hitozuma", "category": "other", "description": "人妻系の作品を探すためのタグです。" },
+  { "name": "痴女", "slug": "chijo", "category": "other", "description": "痴女系の作品を拾うためのタグです。" },
+  { "name": "VR", "slug": "vr", "category": "other", "description": "VR作品の一覧に使うタグです。" },
+  { "name": "コスプレ", "slug": "cosplay", "category": "other", "description": "コスプレ要素のある作品を探すためのタグです。" },
+  { "name": "編集部おすすめ", "slug": "editor-pick", "category": "other", "description": "管理人が推したい作品に使うタグです。" }
 ]

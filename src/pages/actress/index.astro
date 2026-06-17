@@ -6,12 +6,12 @@ import { groupActressesByKana, getActressStats } from '../../lib/catalog';
 const groupedActresses = groupActressesByKana();
 ---
 
-<BaseLayout title="女優一覧 | わきあなチャンネル" description="わきあなチャンネルの女優一覧です。五十音順で作品を探せます。">
+<BaseLayout title="女優一覧 | わきあなチャンネル" description="わきあなチャンネルの女優一覧です。五十音順で探せます。">
   <main class="content-page">
     <article class="content-panel">
       <p class="eyebrow">女優一覧</p>
       <h1>女優一覧</h1>
-      <p>五十音順に女優を整理しています。名前を押すと個別ページへ移動します。</p>
+      <p>五十音順に女優を整理しています。カードを押すと個別ページへ移動します。</p>
 
       {groupedActresses.map((group) => (
         <section class="subsection">
@@ -20,12 +20,14 @@ const groupedActresses = groupActressesByKana();
               <h2>{group.group}</h2>
             </div>
           </div>
-          <div class="list-grid">
+          <div class="actress-grid">
             {group.actresses.map((actress) => {
               const stats = getActressStats(actress.slug);
               return (
-                <a class="list-card" href={`/actress/${actress.slug}/`}>
+                <a class="actress-card" href={`/actress/${actress.slug}/`}>
+                  <img src={actress.image_url} alt={actress.name} />
                   <strong>{actress.name}</strong>
+                  <span>{actress.kana}</span>
                   <span>{stats.workCount}作品</span>
                 </a>
               );

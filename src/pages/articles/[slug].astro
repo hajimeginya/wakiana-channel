@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getAllArticles, getArticleBySlug } from '../../lib/articles';
+
+export function getStaticPaths() {
+  return getAllArticles().map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const current = article ?? getArticleBySlug(Astro.params.slug ?? '');
+
+if (!current) {
+  throw new Error(`Article not found: ${Astro.params.slug}`);
+}
+---
+
+<BaseLayout
+  title={`${current.title} | わきあなチャンネル`}
+  description={current.description}
+>
+  <main class="content-page">
+    <article class="content-panel detail-page article-detail">
+      <img class="detail-art article-cover" src={current.image_url} alt={current.title} />
+      <div class="page-header compact">
+        <p class="eyebrow">Article</p>
+        <h1>{current.title}</h1>
+      </div>
+
+      <div class="tag-row">
+        {current.tags.map((tag) => (
+          <span class="chip chip-strong">{tag.name}</span>
+        ))}
+      </div>
+
+      <div class="article-body">{current.description}</div>
+    </article>
+  </main>
+</BaseLayout>

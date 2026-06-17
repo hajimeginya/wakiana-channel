@@ -1,7 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
-import { getRelatedWorks, getTagByLabel, getWorkByContentId, works, getActressByName } from '../../lib/catalog';
+import {
+  getActressBySlug,
+  getDisplayActressNames,
+  getDisplayTagNames,
+  getRelatedWorks,
+  getTagBySlug,
+  getWorkByContentId,
+  works,
+} from '../../lib/catalog';
 
 export function getStaticPaths() {
   return works.map((work) => ({
@@ -31,8 +39,9 @@ const relatedWorks = entry ? getRelatedWorks(entry, 4) : [];
             <div>
               <span class="detail-label">女優</span>
               <div class="detail-links">
-                {entry.actresses.map((name) => {
-                  const actress = getActressByName(name);
+                {entry.actress_slugs.map((slug, index) => {
+                  const actress = getActressBySlug(slug);
+                  const name = getDisplayActressNames(entry)[index] ?? entry.actresses[index] ?? slug;
                   return actress ? (
                     <a href={`/actress/${actress.slug}/`}>{name}</a>
                   ) : (
@@ -56,14 +65,14 @@ const relatedWorks = entry ? getRelatedWorks(entry, 4) : [];
           </div>
 
           <div class="tag-row">
-            {entry.tags.map((tag) => {
-              const tagInfo = getTagByLabel(tag);
-              return tagInfo ? (
-                <a class="chip chip-strong" href={`/tags/${tagInfo.slug}/`}>
-                  {tag}
+            {entry.tags.map((slug) => {
+              const tag = getTagBySlug(slug);
+              return tag ? (
+                <a class="chip chip-strong" href={`/tags/${tag.slug}/`}>
+                  {tag.name}
                 </a>
               ) : (
-                <span class="chip chip-strong">{tag}</span>
+                <span class="chip chip-strong">{slug}</span>
               );
             })}
           </div>
@@ -89,7 +98,12 @@ const relatedWorks = entry ? getRelatedWorks(entry, 4) : [];
                     <img src={related.package_image_url} alt={related.title} />
                     <h3>{related.title}</h3>
                     <div class="meta">
-                      <span>{related.actresses.join(' / ')}</span>
+                      <span>{getDisplayActressNames(related).join(' / ')}</span>
+                    </div>
+                    <div class="tag-row">
+                      {getDisplayTagNames(related).slice(0, 2).map((tagName) => (
+                        <span class="chip">{tagName}</span>
+                      ))}
                     </div>
                   </a>
                 </article>
