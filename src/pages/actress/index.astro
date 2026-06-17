@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { groupActressesByKana, getActressStats } from '../../lib/catalog';
+
+const groupedActresses = groupActressesByKana();
+---
+
+<BaseLayout title="女優一覧 | わきあなチャンネル" description="わきあなチャンネルの女優一覧です。五十音順で作品を探せます。">
+  <main class="content-page">
+    <article class="content-panel">
+      <p class="eyebrow">女優一覧</p>
+      <h1>女優一覧</h1>
+      <p>五十音順に女優を整理しています。名前を押すと個別ページへ移動します。</p>
+
+      {groupedActresses.map((group) => (
+        <section class="subsection">
+          <div class="section-head compact">
+            <div>
+              <h2>{group.group}</h2>
+            </div>
+          </div>
+          <div class="list-grid">
+            {group.actresses.map((actress) => {
+              const stats = getActressStats(actress.slug);
+              return (
+                <a class="list-card" href={`/actress/${actress.slug}/`}>
+                  <strong>{actress.name}</strong>
+                  <span>{stats.workCount}作品</span>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+    </article>
+  </main>
+</BaseLayout>

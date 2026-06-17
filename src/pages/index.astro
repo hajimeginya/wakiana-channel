@@ -1,17 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
-import { armpitWorks, analWorks, featuredActresses, majorTags, newWorks, popularWorks } from '../data/sample';
+import {
+  getAnalWorks,
+  getNewWorks,
+  getPopularActresses,
+  getPopularWorks,
+  getWakiWorks,
+  tags,
+} from '../lib/catalog';
 
-const workSections = [
-  { id: 'new', title: '新着作品', description: 'いま入った作品を5件だけ先に並べています。', items: newWorks },
-  { id: 'ranking', title: '今週の人気作品', description: 'アクセスの集まり方が強い作品を5件まとめています。', items: popularWorks },
-  { id: 'armpit', title: '脇作品', description: '脇フェチで探しやすい作品を5件厳選しています。', items: armpitWorks },
-  { id: 'anal', title: 'アナル作品', description: 'アナル作品を中心に、入口になりやすい5件を並べています。', items: analWorks },
-];
+const newWorks = getNewWorks(5);
+const rankingWorks = getPopularWorks(5);
+const wakiWorks = getWakiWorks(5);
+const analWorks = getAnalWorks(5);
+const popularActresses = getPopularActresses(5);
+const majorTags = tags;
 ---
 
-<BaseLayout title="わきあなチャンネル | 脇フェチ・アナル作品に特化したAV作品発見サイト" description="わきあなチャンネルは、脇フェチ・アナル作品に特化したAV作品発見サイトです。新着、人気、女優、タグから作品を探せます。">
+<BaseLayout
+  title="わきあなチャンネル | 脇フェチ・アナル作品に特化したAV作品発見サイト"
+  description="わきあなチャンネルは、脇フェチ・アナル作品に特化したAV作品発見サイトです。作成中のため、掲載している作品情報はサンプルデータです。"
+>
   <main class="page">
     <header class="topbar">
       <a class="brand" href="/">
@@ -21,7 +31,7 @@ const workSections = [
       <nav class="nav" aria-label="Main">
         <a href="#new">新着作品</a>
         <a href="#ranking">ランキング</a>
-        <a href="#armpit">脇作品</a>
+        <a href="#waki">脇作品</a>
         <a href="#anal">アナル作品</a>
         <a href="#actresses">女優一覧</a>
         <a href="#tags">タグ</a>
@@ -32,8 +42,13 @@ const workSections = [
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">作成中</p>
-        <h1 id="hero-title">わきあなチャンネル 脇フェチ・アナル作品に特化したAV作品発見サイト</h1>
-        <p>作成中のため、掲載している作品情報はサンプルデータです。</p>
+        <h1 id="hero-title">わきあなチャンネル</h1>
+        <p class="hero-lead">脇フェチ・アナル作品に特化したAV作品発見サイト</p>
+        <p class="hero-note">
+          現在このサイトは作成中です。
+          掲載している作品情報はサンプルデータです。
+          FANZA API連携後、新着作品・ランキング・女優ページを自動更新していく予定です。
+        </p>
         <div class="hero-actions">
           <a class="button primary" href="#new">新着作品を見る</a>
           <a class="button" href="#tags">タグから探す</a>
@@ -42,61 +57,139 @@ const workSections = [
 
       <div class="hero-media" aria-label="作成中の案内">
         <div class="status-card">
-          <strong>作成中</strong>
-          <p>新着作品、ランキング、女優一覧、タグ検索を順に整えています。</p>
+          <strong>サンプルデータで表示中</strong>
+          <p>データ取得部分だけ差し替えれば、そのままAPI連携へ移せる構成です。</p>
           <div class="status-row">
-            <span class="chip chip-strong">サンプルデータ</span>
-            <span class="chip chip-strong">脇作品</span>
-            <span class="chip chip-strong">アナル作品</span>
+            <span class="chip chip-strong">新着作品</span>
+            <span class="chip chip-strong">ランキング</span>
+            <span class="chip chip-strong">女優ページ</span>
           </div>
         </div>
       </div>
     </section>
 
-    {workSections.map((section) => (
-      <section class="section" id={section.id}>
-        <div class="section-head">
-          <div>
-            <h2>{section.title}</h2>
-            <p>{section.description}</p>
-          </div>
+    <section class="section" id="new">
+      <div class="section-head">
+        <div>
+          <h2>新着作品</h2>
+          <p>最新のサンプル作品を5件だけ先に並べています。</p>
         </div>
-
-        <div class="card-grid">
-          {section.items.map((item) => (
-            <article class="panel work-card">
-              <a class="work-link" href={`/works/${item.slug}/`}>
-                <img src={item.art} alt={item.title} />
-                <div class="meta">
-                  <span>{item.actress}</span>
-                  <span>詳細へ</span>
-                </div>
-                <h3>{item.title}</h3>
-              </a>
+      </div>
+      <div class="card-grid">
+        {newWorks.map((item) => (
+          <article class="panel work-card">
+            <a class="work-link" href={`/works/${item.content_id}/`}>
+              <img src={item.package_image_url} alt={item.title} />
+              <h3>{item.title}</h3>
+              <div class="meta">
+                <span>{item.actresses.join(' / ')}</span>
+              </div>
               <div class="tag-row">
-                {item.tags.map((tag) => (
+                {item.tags.slice(0, 3).map((tag) => (
                   <span class="chip">{tag}</span>
                 ))}
               </div>
-            </article>
-          ))}
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" id="ranking">
+      <div class="section-head">
+        <div>
+          <h2>今週の人気作品</h2>
+          <p>仮の ranking_score を使って、今の人気枠を5件並べています。</p>
         </div>
-      </section>
-    ))}
+      </div>
+      <div class="card-grid">
+        {rankingWorks.map((item) => (
+          <article class="panel work-card">
+            <a class="work-link" href={`/works/${item.content_id}/`}>
+              <img src={item.package_image_url} alt={item.title} />
+              <h3>{item.title}</h3>
+              <div class="meta">
+                <span>{item.actresses.join(' / ')}</span>
+              </div>
+              <div class="tag-row">
+                {item.tags.slice(0, 3).map((tag) => (
+                  <span class="chip">{tag}</span>
+                ))}
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" id="waki">
+      <div class="section-head">
+        <div>
+          <h2>脇作品</h2>
+          <p>脇系のタグを持つ作品だけを5件表示しています。</p>
+        </div>
+      </div>
+      <div class="card-grid">
+        {wakiWorks.map((item) => (
+          <article class="panel work-card">
+            <a class="work-link" href={`/works/${item.content_id}/`}>
+              <img src={item.package_image_url} alt={item.title} />
+              <h3>{item.title}</h3>
+              <div class="meta">
+                <span>{item.actresses.join(' / ')}</span>
+              </div>
+              <div class="tag-row">
+                {item.tags.slice(0, 3).map((tag) => (
+                  <span class="chip">{tag}</span>
+                ))}
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" id="anal">
+      <div class="section-head">
+        <div>
+          <h2>アナル作品</h2>
+          <p>アナル系のタグを持つ作品だけを5件表示しています。</p>
+        </div>
+      </div>
+      <div class="card-grid">
+        {analWorks.map((item) => (
+          <article class="panel work-card">
+            <a class="work-link" href={`/works/${item.content_id}/`}>
+              <img src={item.package_image_url} alt={item.title} />
+              <h3>{item.title}</h3>
+              <div class="meta">
+                <span>{item.actresses.join(' / ')}</span>
+              </div>
+              <div class="tag-row">
+                {item.tags.slice(0, 3).map((tag) => (
+                  <span class="chip">{tag}</span>
+                ))}
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
 
     <section class="section" id="actresses">
       <div class="section-head">
         <div>
           <h2>人気女優</h2>
-          <p>女優名から作品をたどりやすいように、入口だけを先に並べています。</p>
+          <p>作品数を基準に、入口として見せたい女優を5人並べています。</p>
         </div>
       </div>
       <div class="profile-grid">
-        {featuredActresses.map((actress) => (
-          <article class="note profile-card">
+        {popularActresses.map((actress) => (
+          <a class="note profile-card" href={`/actress/${actress.slug}/`}>
             <strong>{actress.name}</strong>
-            <span>{actress.note}</span>
-          </article>
+            <span>{actress.workCount}作品</span>
+            <span>脇 {actress.wakiCount} / アナル {actress.analCount}</span>
+          </a>
         ))}
       </div>
     </section>
@@ -105,12 +198,14 @@ const workSections = [
       <div class="section-head">
         <div>
           <h2>主要タグ</h2>
-          <p>脇作品、アナル作品、ランキングなどの軸で探せます。</p>
+          <p>タグページへそのまま遷移できる、初期タグの一覧です。</p>
         </div>
       </div>
       <div class="chip-row chip-row-large">
         {majorTags.map((tag) => (
-          <span class="chip chip-strong">{tag}</span>
+          <a class="chip chip-strong" href={`/tags/${tag.slug}/`}>
+            {tag.label}
+          </a>
         ))}
       </div>
     </section>
@@ -125,8 +220,8 @@ const workSections = [
       <div class="recommend-grid">
         {newWorks.slice(0, 3).map((item) => (
           <article class="panel recommend-card">
-            <a class="work-link" href={`/works/${item.slug}/`}>
-              <img src={item.art} alt={item.title} />
+            <a class="work-link" href={`/works/${item.content_id}/`}>
+              <img src={item.package_image_url} alt={item.title} />
               <h3>{item.title}</h3>
               <p>{item.description}</p>
             </a>

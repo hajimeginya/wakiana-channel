@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/global.css';
+import { getWeeklyRankingWorks } from '../../../lib/catalog';
+
+const rankingWorks = getWeeklyRankingWorks(10);
+---
+
+<BaseLayout title="今週の人気作品 | わきあなチャンネル" description="サンプルデータの ranking_score を使った仮ランキングです。">
+  <main class="content-page">
+    <article class="content-panel">
+      <p class="eyebrow">ランキング</p>
+      <h1>今週の人気作品</h1>
+      <p>クリックログが入るまでは、サンプルデータの ranking_score を仮ランキングとして使います。</p>
+
+      <div class="rank-list">
+        {rankingWorks.map((work, index) => (
+          <a class="rank-card" href={`/works/${work.content_id}/`}>
+            <span class="rank-number">{index + 1}</span>
+            <img src={work.package_image_url} alt={work.title} />
+            <div>
+              <strong>{work.title}</strong>
+              <span>{work.actresses.join(' / ')}</span>
+              <span>score {work.ranking_score}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </article>
+  </main>
+</BaseLayout>

@@ -134,6 +134,10 @@ img {
   margin: 16px 0 0;
 }
 
+.hero-note {
+  white-space: pre-line;
+}
+
 .hero-actions {
   display: flex;
   gap: 10px;
@@ -215,6 +219,10 @@ img {
   margin-bottom: 12px;
 }
 
+.section-head.compact {
+  margin-bottom: 10px;
+}
+
 .section-head h2 {
   margin: 0;
   font-size: 1.15rem;
@@ -286,6 +294,10 @@ img {
   font-size: 1.02rem;
 }
 
+.subsection {
+  margin-top: 20px;
+}
+
 .tag-row {
   display: flex;
   flex-wrap: wrap;
@@ -346,6 +358,13 @@ img {
 
 .profile-card {
   min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .recommend-card img {
@@ -406,6 +425,112 @@ img {
   border-radius: 8px;
 }
 
+.detail-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.detail-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+
+.detail-meta strong {
+  display: block;
+}
+
+.sample-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sample-grid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.list-card {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.list-card strong {
+  display: block;
+}
+
+.list-card span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.rank-list {
+  display: grid;
+  gap: 10px;
+}
+
+.rank-card {
+  display: grid;
+  grid-template-columns: 44px 88px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.rank-card img {
+  width: 88px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.rank-number {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 700;
+}
+
+.rank-card strong,
+.rank-card span {
+  display: block;
+}
+
 .detail-actress {
   margin: -6px 0 0;
   color: var(--accent);
@@ -421,7 +546,12 @@ img {
   .card-grid,
   .footer-band,
   .profile-grid,
-  .recommend-grid {
+  .recommend-grid,
+  .detail-meta,
+  .sample-grid,
+  .related-grid,
+  .stats-grid,
+  .list-grid {
     grid-template-columns: 1fr;
   }
 
@@ -434,5 +564,13 @@ img {
   .section-head {
     align-items: start;
     flex-direction: column;
+  }
+
+  .rank-card {
+    grid-template-columns: 40px 72px minmax(0, 1fr);
+  }
+
+  .rank-card img {
+    width: 72px;
   }
 }

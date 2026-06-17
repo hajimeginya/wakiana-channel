@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getWorksByTagSlug, tags } from '../../lib/catalog';
+---
+
+<BaseLayout title="タグ一覧 | わきあなチャンネル" description="わきあなチャンネルのタグ一覧です。">
+  <main class="content-page">
+    <article class="content-panel">
+      <p class="eyebrow">タグ一覧</p>
+      <h1>タグ一覧</h1>
+      <p>初期タグを一覧にしています。タグ名を押すと該当作品へ移動します。</p>
+
+      <div class="chip-row chip-row-large">
+        {tags.map((tag) => (
+          <a class="chip chip-strong" href={`/tags/${tag.slug}/`}>
+            {tag.label}
+          </a>
+        ))}
+      </div>
+
+      <div class="list-grid tag-list-grid">
+        {tags.map((tag) => (
+          <a class="list-card" href={`/tags/${tag.slug}/`}>
+            <strong>{tag.label}</strong>
+            <span>{getWorksByTagSlug(tag.slug).length}作品</span>
+          </a>
+        ))}
+      </div>
+    </article>
+  </main>
+</BaseLayout>

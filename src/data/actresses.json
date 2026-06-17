@@ -1,0 +1,14 @@
+[
+  { "slug": "asagiri-riko", "name": "朝霧 りこ", "kana": "あさぎり りこ", "group": "あ行" },
+  { "slug": "aoi-madoka", "name": "青井 まどか", "kana": "あおい まどか", "group": "あ行" },
+  { "slug": "kiritani-sakura", "name": "桐谷 さくら", "kana": "きりたに さくら", "group": "か行" },
+  { "slug": "saeki-shiori", "name": "佐伯 しおり", "kana": "さえき しおり", "group": "さ行" },
+  { "slug": "tachibana-rin", "name": "橘 りん", "kana": "たちばな りん", "group": "た行" },
+  { "slug": "takanashi-miya", "name": "小鳥遊 みや", "kana": "たかなし みや", "group": "た行" },
+  { "slug": "nagase-shizuku", "name": "長瀬 しずく", "kana": "ながせ しずく", "group": "な行" },
+  { "slug": "nishizono-runa", "name": "西園 ルナ", "kana": "にしぞの るな", "group": "な行" },
+  { "slug": "honda-ema", "name": "羽田 えま", "kana": "はだ えま", "group": "は行" },
+  { "slug": "hyuga-risa", "name": "日向 りさ", "kana": "ひゅうが りさ", "group": "は行" },
+  { "slug": "misumi-mio", "name": "三峰 みお", "kana": "みつみね みお", "group": "ま行" },
+  { "slug": "mochizuki-aya", "name": "望月 あや", "kana": "もちづき あや", "group": "ま行" }
+]
