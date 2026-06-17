@@ -1,0 +1,10 @@
+<svg width="640" height="800" viewBox="0 0 640 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Generic actress placeholder</title>
+  <desc id="desc">Abstract placeholder portrait for sample actress data.</desc>
+  <rect width="640" height="800" rx="48" fill="#0f1721"/>
+  <circle cx="320" cy="280" r="110" fill="#203346"/>
+  <path d="M180 650c20-98 96-156 140-156h0c44 0 120 58 140 156" fill="#203346"/>
+  <rect x="130" y="120" width="380" height="560" rx="38" fill="none" stroke="#33506b" stroke-width="6"/>
+  <path d="M210 250c20-60 68-96 110-96s90 36 110 96" fill="none" stroke="#5eead4" stroke-width="8" stroke-linecap="round"/>
+  <path d="M214 420h212" stroke="#60a5fa" stroke-width="8" stroke-linecap="round"/>
+</svg>
