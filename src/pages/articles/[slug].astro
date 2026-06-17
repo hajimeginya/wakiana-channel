@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
-import { getAllArticles, getArticleBySlug } from '../../lib/articles';
+import { getAllArticles, getArticleBySlug, getArticleDisplayChips, getRelatedArticles } from '../../lib/articles';
 
 export function getStaticPaths() {
   return getAllArticles().map((article) => ({
@@ -12,6 +12,7 @@ export function getStaticPaths() {
 
 const { article } = Astro.props;
 const current = article ?? getArticleBySlug(Astro.params.slug ?? '');
+const relatedArticles = current ? getRelatedArticles(current) : [];
 
 if (!current) {
   throw new Error(`Article not found: ${Astro.params.slug}`);
@@ -30,13 +31,58 @@ if (!current) {
         <h1>{current.title}</h1>
       </div>
 
-      <div class="tag-row">
-        {current.tags.map((tag) => (
-          <span class="chip chip-strong">{tag.name}</span>
-        ))}
+      <div class="subsection">
+        <div class="section-head compact">
+          <div>
+            <h2>出演女優</h2>
+          </div>
+        </div>
+        <div class="tag-row">
+          {current.actress_slugs.map((slug, index) => (
+            <a class="chip chip-strong" href={`/actress/${slug}/`}>
+              {current.actresses[index]}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="section-head compact">
+          <div>
+            <h2>タグ</h2>
+          </div>
+        </div>
+        <div class="tag-row">
+          {getArticleDisplayChips(current).map((chip) => (
+            <a class={`chip ${chip.kind === 'actress' ? 'chip-strong' : ''}`} href={chip.href}>
+              {chip.name}
+            </a>
+          ))}
+        </div>
       </div>
 
       <div class="article-body">{current.description}</div>
+
+      <div class="subsection">
+        <div class="section-head compact">
+          <div>
+            <h2>関連記事</h2>
+          </div>
+        </div>
+        <div class="related-grid">
+          {relatedArticles.map((article) => (
+            <a class="panel article-card" href={`/articles/${article.slug}/`}>
+              <img src={article.image_url} alt={article.title} />
+              <h3>{article.title}</h3>
+              <div class="tag-row">
+                {getArticleDisplayChips(article).slice(0, 4).map((chip) => (
+                  <span class={`chip ${chip.kind === 'actress' ? 'chip-strong' : ''}`}>{chip.name}</span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
     </article>
   </main>
 </BaseLayout>

@@ -12,5 +12,20 @@
   { "slug": "honda-ema", "name": "羽田 えま", "kana": "はだ えま", "group": "は行", "image_url": "/actresses/honda-ema.svg" },
   { "slug": "hyuga-risa", "name": "日向 りさ", "kana": "ひゅうが りさ", "group": "は行", "image_url": "/actresses/hyuga-risa.svg" },
   { "slug": "misumi-mio", "name": "三峰 みお", "kana": "みつみね みお", "group": "ま行", "image_url": "/actresses/misumi-mio.svg" },
-  { "slug": "mochizuki-aya", "name": "望月 あや", "kana": "もちづき あや", "group": "ま行", "image_url": "/actresses/mochizuki-aya.svg" }
+  { "slug": "mochizuki-aya", "name": "望月 あや", "kana": "もちづき あや", "group": "ま行", "image_url": "/actresses/mochizuki-aya.svg" },
+  { "slug": "otoha-nanase", "name": "乙葉 ななせ", "kana": "おとは ななせ", "group": "あ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "minato-riku", "name": "湊 莉久", "kana": "みなと りく", "group": "ま行", "image_url": "/actresses/generic.svg" },
+  { "slug": "tsubomi", "name": "つぼみ", "kana": "つぼみ", "group": "た行", "image_url": "/actresses/generic.svg" },
+  { "slug": "kohaku-uta", "name": "琥珀 うた", "kana": "こはく うた", "group": "か行", "image_url": "/actresses/generic.svg" },
+  { "slug": "imai-yua", "name": "今井 ゆあ", "kana": "いまい ゆあ", "group": "あ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "mizushima-alice", "name": "水嶋 アリス", "kana": "みずしま ありす", "group": "ま行", "image_url": "/actresses/generic.svg" },
+  { "slug": "sakura-haru", "name": "さくら はる", "kana": "さくら はる", "group": "さ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "arima-yuu", "name": "有馬 優羽", "kana": "ありま ゆう", "group": "あ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "ito-azusa", "name": "伊東 あずさ", "kana": "いとう あずさ", "group": "あ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "ichijo-mio", "name": "一条 みお", "kana": "いちじょう みお", "group": "あ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "tadokoro-yuri", "name": "田所 百合", "kana": "たどころ ゆり", "group": "た行", "image_url": "/actresses/generic.svg" },
+  { "slug": "okina-misaki", "name": "奥菜 みさき", "kana": "おきな みさき", "group": "あ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "yuuki-nao", "name": "優木 なお", "kana": "ゆうき なお", "group": "や行", "image_url": "/actresses/generic.svg" },
+  { "slug": "ayase-kokoro", "name": "綾瀬 こころ", "kana": "あやせ こころ", "group": "あ行", "image_url": "/actresses/generic.svg" },
+  { "slug": "momonaga-sarina", "name": "百永 さりな", "kana": "ももなが さりな", "group": "ま行", "image_url": "/actresses/generic.svg" }
 ]

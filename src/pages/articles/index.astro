@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
-import { getAllArticles } from '../../lib/articles';
+import { getAllArticles, getArticleDisplayChips } from '../../lib/articles';
 
 const articles = getAllArticles();
 ---
@@ -23,8 +23,8 @@ const articles = getAllArticles();
           <img src={article.image_url} alt={article.title} />
           <h2>{article.title}</h2>
           <div class="tag-row">
-            {article.tags.map((tag) => (
-              <span class="chip">{tag.name}</span>
+            {getArticleDisplayChips(article).slice(0, 6).map((chip) => (
+              <span class={`chip ${chip.kind === 'actress' ? 'chip-strong' : ''}`}>{chip.name}</span>
             ))}
           </div>
         </a>

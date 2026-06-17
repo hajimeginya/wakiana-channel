@@ -11,7 +11,7 @@ import {
   getPopularWorks,
   getWakiWorks,
 } from '../lib/catalog';
-import { getLatestArticles } from '../lib/articles';
+import { getArticleDisplayChips, getLatestArticles } from '../lib/articles';
 
 const newWorks = getNewWorks(5);
 const rankingWorks = getPopularWorks(5);
@@ -19,7 +19,7 @@ const wakiWorks = getWakiWorks(5);
 const analWorks = getAnalWorks(5);
 const popularActresses = getPopularActresses(10);
 const popularTags = getPopularTags(12);
-const latestArticles = getLatestArticles(2);
+const latestArticles = getLatestArticles(4);
 ---
 
 <BaseLayout
@@ -83,8 +83,8 @@ const latestArticles = getLatestArticles(2);
             <img src={article.image_url} alt={article.title} />
             <h3>{article.title}</h3>
             <div class="tag-row">
-              {article.tags.map((tag) => (
-                <span class="chip">{tag.name}</span>
+              {getArticleDisplayChips(article).slice(0, 5).map((chip) => (
+                <span class={`chip ${chip.kind === 'actress' ? 'chip-strong' : ''}`}>{chip.name}</span>
               ))}
             </div>
           </a>
