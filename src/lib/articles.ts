@@ -4,6 +4,7 @@ export type Article = {
   slug: string;
   title: string;
   image_url: string;
+  source_url?: string;
   actresses: string[];
   actress_slugs: string[];
   tags: string[];
@@ -21,6 +22,8 @@ const articles: Article[] = [
     slug: 'anal-lick-lesbian-1',
     title: 'アナル舐めレズビアン アンナと花子全面監修 乙葉ななせ 湊莉久',
     image_url: 'https://pics.dmm.co.jp/digital/video/3wanz00212/3wanz00212pl.jpg',
+    source_url:
+      'https://video.dmm.co.jp/av/content/?id=3wanz00212&i3_ref=list&i3_ord=1&i3_pst=1&dmmref=video_list',
     actresses: ['乙葉ななせ', '湊莉久'],
     actress_slugs: ['otoha-nanase', 'minato-riku'],
     tags: ['anal', 'lez', 'anal-lick'],
@@ -31,6 +34,8 @@ const articles: Article[] = [
     slug: 'anal-lick-lesbian-2',
     title: 'アナル舐めレズビアン つぼみ 琥珀うた',
     image_url: 'https://pics.dmm.co.jp/digital/video/annd00124/annd00124pl.jpg',
+    source_url:
+      'https://video.dmm.co.jp/av/content/?id=annd00124&i3_ref=recommend&i3_ord=8&i3_pst=6&dmmref=latest_check_video_detail',
     actresses: ['つぼみ', '琥珀うた'],
     actress_slugs: ['tsubomi', 'kohaku-uta'],
     tags: ['anal', 'lez', 'anal-lick'],
@@ -48,7 +53,7 @@ const articles: Article[] = [
   },
   {
     slug: 'waki-work-intro-page',
-    title: '腋作品紹介ページ',
+    title: '腋顔面圧迫手コキ',
     image_url: 'https://pics.dmm.co.jp/digital/video/agmx00159/agmx00159pl.jpg',
     actresses: ['一条みお', '田所百合', '奥菜みさき', '優木なお', '綾瀬こころ', '百永さりな'],
     actress_slugs: ['ichijo-mio', 'tadokoro-yuri', 'okina-misaki', 'yuuki-nao', 'ayase-kokoro', 'momonaga-sarina'],

@@ -46,6 +46,14 @@ if (!current) {
         </div>
       </div>
 
+      {current.source_url && (
+        <div class="detail-links">
+          <a class="button primary" href={current.source_url} target="_blank" rel="noreferrer">
+            DMMで見る
+          </a>
+        </div>
+      )}
+
       <div class="subsection">
         <div class="section-head compact">
           <div>
