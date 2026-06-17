@@ -31,30 +31,24 @@ const workSections = [
 
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">作成中のAV作品発見サイト</p>
-        <h1 id="hero-title">わきあなチャンネル</h1>
-        <p class="hero-lead">脇フェチ・アナル作品に特化したAV作品発見サイト</p>
-        <p>
-          新着作品、人気作品、女優、タグから、見たい作品を最短で探せます。
-          現在このサイトは作成中です。掲載している作品情報はサンプルデータです。FANZA API連携後、新着作品・ランキング・女優ページを自動更新していく予定です。
-        </p>
+        <p class="eyebrow">作成中</p>
+        <h1 id="hero-title">わきあなチャンネル 脇フェチ・アナル作品に特化したAV作品発見サイト</h1>
+        <p>作成中のため、掲載している作品情報はサンプルデータです。</p>
         <div class="hero-actions">
           <a class="button primary" href="#new">新着作品を見る</a>
           <a class="button" href="#tags">タグから探す</a>
         </div>
       </div>
 
-      <div class="hero-media" aria-label="注目作品の抜粋">
-        <div class="hero-strip">
-          {[newWorks[0], popularWorks[0], analWorks[0]].map((item) => (
-            <article class="hero-mini">
-              <img src={item.art} alt={item.title} />
-              <div>
-                <strong>{item.title}</strong>
-                <span>{item.actress}</span>
-              </div>
-            </article>
-          ))}
+      <div class="hero-media" aria-label="作成中の案内">
+        <div class="status-card">
+          <strong>作成中</strong>
+          <p>新着作品、ランキング、女優一覧、タグ検索を順に整えています。</p>
+          <div class="status-row">
+            <span class="chip chip-strong">サンプルデータ</span>
+            <span class="chip chip-strong">脇作品</span>
+            <span class="chip chip-strong">アナル作品</span>
+          </div>
         </div>
       </div>
     </section>
