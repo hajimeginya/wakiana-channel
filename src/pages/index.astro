@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+import { featuredPrograms, sampleGenres, sampleRows } from '../data/sample';
+---
+
+<BaseLayout title="Wakiana Channel | Static MVP" description="Astro static site MVP with sample data only.">
+  <main class="page">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Wakiana Channel</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#featured">Featured</a>
+        <a href="#genres">Genres</a>
+        <a href="#notes">Notes</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Static site MVP</p>
+        <h1 id="hero-title">Sample data only. No API, no tracking, no database.</h1>
+        <p>
+          This Astro build gives the repository a usable first screen: a curated landing page,
+          visible categories, and compact editorial cards that can be wired to FANZA API,
+          SQLite, click logging, and GitHub Actions later.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#featured">Browse samples</a>
+          <a class="button" href="#notes">Implementation notes</a>
+        </div>
+      </div>
+
+      <div class="hero-media" aria-label="Sample visual collage">
+        <div class="poster-grid">
+          <div class="poster large">
+            <img src="/covers/cover-04.svg" alt="Sample cover artwork" />
+          </div>
+          <div class="poster">
+            <img src="/covers/cover-01.svg" alt="Sample cover artwork" />
+          </div>
+          <div class="poster">
+            <img src="/covers/cover-02.svg" alt="Sample cover artwork" />
+          </div>
+        </div>
+        <div class="metrics">
+          {sampleRows.map((item) => (
+            <div class="stat">
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+              <span>{item.note}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="featured">
+      <div class="section-head">
+        <div>
+          <h2>Featured lineup</h2>
+          <p>Three sample cards with consistent layout and room for later data binding.</p>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        {featuredPrograms.map((item) => (
+          <article class="panel">
+            <img src={item.art} alt="" aria-hidden="true" />
+            <div class="meta">
+              <span>{item.category}</span>
+              <span>{item.score}</span>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" id="genres">
+      <div class="section-head">
+        <div>
+          <h2>Genre filters</h2>
+          <p>Static chips for future search and navigation states.</p>
+        </div>
+      </div>
+      <div class="chip-row">
+        {sampleGenres.map((genre) => (
+          <span class="chip">{genre}</span>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" id="notes">
+      <div class="section-head">
+        <div>
+          <h2>Build notes</h2>
+          <p>Kept intentionally small and dependency-light.</p>
+        </div>
+      </div>
+      <div class="footer-band">
+        <div class="note">
+          <strong>Scope</strong>
+          <span>Static landing page only. No FANZA API calls, SQLite schema, or click logging.</span>
+        </div>
+        <div class="note">
+          <strong>Data</strong>
+          <span>All content is sample data in local TypeScript modules and public SVG assets.</span>
+        </div>
+        <div class="note">
+          <strong>Next step</strong>
+          <span>Drop in server-side routes and persistence once the MVP surface is accepted.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
