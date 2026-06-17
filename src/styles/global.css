@@ -305,6 +305,39 @@ img {
   font-size: 0.9rem;
 }
 
+.content-page {
+  width: min(860px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.content-panel {
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: rgba(16, 28, 40, 0.78);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+}
+
+.content-panel h1 {
+  margin: 0 0 16px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.1;
+}
+
+.content-panel p {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+.content-panel a {
+  color: var(--accent);
+}
+
+.content-panel a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 900px) {
   .hero,
   .card-grid,
