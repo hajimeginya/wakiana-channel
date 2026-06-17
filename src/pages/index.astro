@@ -31,12 +31,12 @@ const workSections = [
 
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">作品発見サイト</p>
+        <p class="eyebrow">作成中のAV作品発見サイト</p>
         <h1 id="hero-title">わきあなチャンネル</h1>
         <p class="hero-lead">脇フェチ・アナル作品に特化したAV作品発見サイト</p>
         <p>
           新着作品、人気作品、女優、タグから、見たい作品を最短で探せます。
-          現在はサンプルデータで構築中です。
+          現在このサイトは作成中です。掲載している作品情報はサンプルデータです。FANZA API連携後、新着作品・ランキング・女優ページを自動更新していく予定です。
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#new">新着作品を見る</a>
@@ -44,17 +44,17 @@ const workSections = [
         </div>
       </div>
 
-      <div class="hero-media" aria-label="作品イメージ">
-        <div class="poster-grid">
-          <div class="poster large">
-            <img src={newWorks[0].art} alt={newWorks[0].title} />
-          </div>
-          <div class="poster">
-            <img src={newWorks[1].art} alt={newWorks[1].title} />
-          </div>
-          <div class="poster">
-            <img src={analWorks[0].art} alt={analWorks[0].title} />
-          </div>
+      <div class="hero-media" aria-label="注目作品の抜粋">
+        <div class="hero-strip">
+          {[newWorks[0], popularWorks[0], analWorks[0]].map((item) => (
+            <article class="hero-mini">
+              <img src={item.art} alt={item.title} />
+              <div>
+                <strong>{item.title}</strong>
+                <span>{item.actress}</span>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
