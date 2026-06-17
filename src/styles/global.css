@@ -134,6 +134,12 @@ img {
   margin: 16px 0 0;
 }
 
+.hero-lead {
+  color: var(--text);
+  font-size: 1.06rem;
+  font-weight: 600;
+}
+
 .hero-actions {
   display: flex;
   gap: 10px;
@@ -270,10 +276,47 @@ img {
   font-size: 0.92rem;
 }
 
+.work-card {
+  padding: 14px;
+}
+
+.work-link {
+  display: block;
+}
+
+.work-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.work-card h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.chip-strong {
+  background: rgba(94, 234, 212, 0.08);
+  border-color: rgba(94, 234, 212, 0.2);
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.chip-row-large {
+  gap: 12px;
 }
 
 .chip {
@@ -303,6 +346,30 @@ img {
 .note span {
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.profile-grid,
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.profile-card {
+  min-height: 120px;
+}
+
+.recommend-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.recommend-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.02rem;
 }
 
 .content-page {
@@ -338,11 +405,35 @@ img {
   text-decoration: underline;
 }
 
+.detail-page {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-art {
+  width: 100%;
+  max-height: 640px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.detail-actress {
+  margin: -6px 0 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.detail-links {
+  margin-top: 10px;
+}
+
 @media (max-width: 900px) {
   .hero,
   .card-grid,
   .footer-band,
-  .metrics {
+  .metrics,
+  .profile-grid,
+  .recommend-grid {
     grid-template-columns: 1fr;
   }
 

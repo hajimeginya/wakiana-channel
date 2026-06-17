@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getWorkBySlug, works } from '../../data/sample';
+
+export function getStaticPaths() {
+  return works.map((work) => ({
+    params: { slug: work.slug },
+    props: { work },
+  }));
+}
+
+const { work } = Astro.props;
+const entry = work ?? getWorkBySlug(Astro.params.slug ?? '');
+---
+
+<BaseLayout
+  title={entry ? `${entry.title} | わきあなチャンネル` : '作品詳細 | わきあなチャンネル'}
+  description={entry ? entry.detailSummary : 'わきあなチャンネルの作品詳細ページです。'}
+>
+  <main class="content-page">
+    <article class="content-panel detail-page">
+      {entry ? (
+        <>
+          <img class="detail-art" src={entry.art} alt={entry.title} />
+          <p class="eyebrow">作品詳細</p>
+          <h1>{entry.title}</h1>
+          <p class="detail-actress">{entry.actress}</p>
+          <p>{entry.detailSummary}</p>
+          <div class="tag-row">
+            {entry.tags.map((tag) => (
+              <span class="chip chip-strong">{tag}</span>
+            ))}
+          </div>
+          <p class="detail-links">
+            <a href="/">トップページへ戻る</a>
+          </p>
+        </>
+      ) : (
+        <>
+          <h1>作品が見つかりません</h1>
+          <p><a href="/">トップページへ戻る</a></p>
+        </>
+      )}
+    </article>
+  </main>
+</BaseLayout>

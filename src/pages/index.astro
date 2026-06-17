@@ -1,121 +1,143 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
-import { featuredPrograms, sampleGenres, sampleRows } from '../data/sample';
+import { armpitWorks, analWorks, featuredActresses, majorTags, newWorks, popularWorks } from '../data/sample';
+
+const workSections = [
+  { id: 'new', title: '新着作品', description: 'いま入った作品を5件だけ先に並べています。', items: newWorks },
+  { id: 'ranking', title: '今週の人気作品', description: 'アクセスの集まり方が強い作品を5件まとめています。', items: popularWorks },
+  { id: 'armpit', title: '脇作品', description: '脇フェチで探しやすい作品を5件厳選しています。', items: armpitWorks },
+  { id: 'anal', title: 'アナル作品', description: 'アナル作品を中心に、入口になりやすい5件を並べています。', items: analWorks },
+];
 ---
 
-<BaseLayout title="Wakiana Channel | Static MVP" description="Astro static site MVP with sample data only.">
+<BaseLayout title="わきあなチャンネル | 脇フェチ・アナル作品に特化したAV作品発見サイト" description="わきあなチャンネルは、脇フェチ・アナル作品に特化したAV作品発見サイトです。新着、人気、女優、タグから作品を探せます。">
   <main class="page">
     <header class="topbar">
       <a class="brand" href="/">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>Wakiana Channel</span>
+        <span>わきあなチャンネル</span>
       </a>
       <nav class="nav" aria-label="Main">
-        <a href="#featured">Featured</a>
-        <a href="#genres">Genres</a>
-        <a href="#notes">Notes</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/contact">Contact</a>
+        <a href="#new">新着作品</a>
+        <a href="#ranking">ランキング</a>
+        <a href="#armpit">脇作品</a>
+        <a href="#anal">アナル作品</a>
+        <a href="#actresses">女優一覧</a>
+        <a href="#tags">タグ</a>
+        <a href="#recommend">管理人おすすめ</a>
       </nav>
     </header>
 
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">Static site MVP</p>
-        <h1 id="hero-title">Sample data only. No API, no tracking, no database.</h1>
+        <p class="eyebrow">作品発見サイト</p>
+        <h1 id="hero-title">わきあなチャンネル</h1>
+        <p class="hero-lead">脇フェチ・アナル作品に特化したAV作品発見サイト</p>
         <p>
-          This Astro build gives the repository a usable first screen: a curated landing page,
-          visible categories, and compact editorial cards that can be wired to FANZA API,
-          SQLite, click logging, and GitHub Actions later.
+          新着作品、人気作品、女優、タグから、見たい作品を最短で探せます。
+          現在はサンプルデータで構築中です。
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#featured">Browse samples</a>
-          <a class="button" href="#notes">Implementation notes</a>
+          <a class="button primary" href="#new">新着作品を見る</a>
+          <a class="button" href="#tags">タグから探す</a>
         </div>
       </div>
 
-      <div class="hero-media" aria-label="Sample visual collage">
+      <div class="hero-media" aria-label="作品イメージ">
         <div class="poster-grid">
           <div class="poster large">
-            <img src="/covers/cover-04.svg" alt="Sample cover artwork" />
+            <img src={newWorks[0].art} alt={newWorks[0].title} />
           </div>
           <div class="poster">
-            <img src="/covers/cover-01.svg" alt="Sample cover artwork" />
+            <img src={newWorks[1].art} alt={newWorks[1].title} />
           </div>
           <div class="poster">
-            <img src="/covers/cover-02.svg" alt="Sample cover artwork" />
+            <img src={analWorks[0].art} alt={analWorks[0].title} />
           </div>
-        </div>
-        <div class="metrics">
-          {sampleRows.map((item) => (
-            <div class="stat">
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-              <span>{item.note}</span>
-            </div>
-          ))}
         </div>
       </div>
     </section>
 
-    <section class="section" id="featured">
+    {workSections.map((section) => (
+      <section class="section" id={section.id}>
+        <div class="section-head">
+          <div>
+            <h2>{section.title}</h2>
+            <p>{section.description}</p>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          {section.items.map((item) => (
+            <article class="panel work-card">
+              <a class="work-link" href={`/works/${item.slug}/`}>
+                <img src={item.art} alt={item.title} />
+                <div class="meta">
+                  <span>{item.actress}</span>
+                  <span>詳細へ</span>
+                </div>
+                <h3>{item.title}</h3>
+              </a>
+              <div class="tag-row">
+                {item.tags.map((tag) => (
+                  <span class="chip">{tag}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <section class="section" id="actresses">
       <div class="section-head">
         <div>
-          <h2>Featured lineup</h2>
-          <p>Three sample cards with consistent layout and room for later data binding.</p>
+          <h2>人気女優</h2>
+          <p>女優名から作品をたどりやすいように、入口だけを先に並べています。</p>
         </div>
       </div>
-
-      <div class="card-grid">
-        {featuredPrograms.map((item) => (
-          <article class="panel">
-            <img src={item.art} alt="" aria-hidden="true" />
-            <div class="meta">
-              <span>{item.category}</span>
-              <span>{item.score}</span>
-            </div>
-            <h3>{item.title}</h3>
-            <p>{item.summary}</p>
+      <div class="profile-grid">
+        {featuredActresses.map((actress) => (
+          <article class="note profile-card">
+            <strong>{actress.name}</strong>
+            <span>{actress.note}</span>
           </article>
         ))}
       </div>
     </section>
 
-    <section class="section" id="genres">
+    <section class="section" id="tags">
       <div class="section-head">
         <div>
-          <h2>Genre filters</h2>
-          <p>Static chips for future search and navigation states.</p>
+          <h2>主要タグ</h2>
+          <p>脇作品、アナル作品、ランキングなどの軸で探せます。</p>
         </div>
       </div>
-      <div class="chip-row">
-        {sampleGenres.map((genre) => (
-          <span class="chip">{genre}</span>
+      <div class="chip-row chip-row-large">
+        {majorTags.map((tag) => (
+          <span class="chip chip-strong">{tag}</span>
         ))}
       </div>
     </section>
 
-    <section class="section" id="notes">
+    <section class="section" id="recommend">
       <div class="section-head">
         <div>
-          <h2>Build notes</h2>
-          <p>Kept intentionally small and dependency-light.</p>
+          <h2>管理人おすすめ</h2>
+          <p>入口として見せたい作品を、わかりやすいカードでまとめています。</p>
         </div>
       </div>
-      <div class="footer-band">
-        <div class="note">
-          <strong>Scope</strong>
-          <span>Static landing page only. No FANZA API calls, SQLite schema, or click logging.</span>
-        </div>
-        <div class="note">
-          <strong>Data</strong>
-          <span>All content is sample data in local TypeScript modules and public SVG assets.</span>
-        </div>
-        <div class="note">
-          <strong>Next step</strong>
-          <span>Drop in server-side routes and persistence once the MVP surface is accepted.</span>
-        </div>
+      <div class="recommend-grid">
+        {newWorks.slice(0, 3).map((item) => (
+          <article class="panel recommend-card">
+            <a class="work-link" href={`/works/${item.slug}/`}>
+              <img src={item.art} alt={item.title} />
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </a>
+          </article>
+        ))}
       </div>
     </section>
   </main>
