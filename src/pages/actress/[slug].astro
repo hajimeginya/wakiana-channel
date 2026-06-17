@@ -1,45 +1,51 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
-import { actresses, getActressBySlug, getActressStats, getWorksByActressSlug } from '../../lib/catalog';
+import { actresses, getActressBySlug, getActressStats, getDisplayTagNames, getWorksByActressSlug } from '../../lib/catalog';
 
 export function getStaticPaths() {
   return actresses.map((actress) => ({
     params: { slug: actress.slug },
+    props: { actress },
   }));
 }
 
-const actress = getActressBySlug(Astro.params.slug ?? '');
-const stats = actress ? getActressStats(actress.slug) : null;
-const works = actress ? getWorksByActressSlug(actress.slug) : [];
-const wakiWorks = works.filter((work) => work.tags.some((tag) => ['脇', '脇舐め', '脇接写', 'ワキ汗'].includes(tag)));
-const analWorks = works.filter((work) => work.tags.some((tag) => ['アナル', 'アナル解禁', 'アナル舐め', 'アナルVR'].includes(tag)));
+const { actress } = Astro.props;
+const entry = actress ?? getActressBySlug(Astro.params.slug ?? '');
+const stats = entry ? getActressStats(entry.slug) : null;
+const works = entry ? getWorksByActressSlug(entry.slug) : [];
+const wakiWorks = works.filter((work) => work.tags.includes('waki') || work.tags.some((tag) => tag.startsWith('waki-')));
+const analWorks = works.filter((work) => work.tags.includes('anal') || work.tags.some((tag) => tag.startsWith('anal-')));
 ---
 
 <BaseLayout
-  title={actress ? `${actress.name} | わきあなチャンネル` : '女優ページ | わきあなチャンネル'}
-  description={actress ? `${actress.name} の作品一覧です。` : '女優ページです。'}
+  title={entry ? `${entry.name} | わきあなチャンネル` : '女優ページ | わきあなチャンネル'}
+  description={entry ? `${entry.name} の作品一覧です。` : '女優ページです。'}
 >
   <main class="content-page">
-    <article class="content-panel">
-      {actress && stats ? (
+    <article class="content-panel detail-page">
+      {entry && stats ? (
         <>
-          <p class="eyebrow">女優ページ</p>
-          <h1>{actress.name}</h1>
-          <p>{actress.kana}</p>
-
-          <div class="stats-grid">
-            <div class="stat">
-              <strong>{stats.workCount}</strong>
-              <span>作品数</span>
-            </div>
-            <div class="stat">
-              <strong>{stats.wakiCount}</strong>
-              <span>脇作品数</span>
-            </div>
-            <div class="stat">
-              <strong>{stats.analCount}</strong>
-              <span>アナル作品数</span>
+          <div class="actress-hero">
+            <img class="actress-hero-image" src={entry.image_url} alt={entry.name} />
+            <div>
+              <p class="eyebrow">女優ページ</p>
+              <h1>{entry.name}</h1>
+              <p>{entry.kana}</p>
+              <div class="stats-grid">
+                <div class="stat">
+                  <strong>{stats.workCount}</strong>
+                  <span>出演作品数</span>
+                </div>
+                <div class="stat">
+                  <strong>{stats.wakiCount}</strong>
+                  <span>脇作品数</span>
+                </div>
+                <div class="stat">
+                  <strong>{stats.analCount}</strong>
+                  <span>アナル作品数</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -56,12 +62,7 @@ const analWorks = works.filter((work) => work.tags.some((tag) => ['アナル', '
                     <img src={work.package_image_url} alt={work.title} />
                     <h3>{work.title}</h3>
                     <div class="meta">
-                      <span>{work.actresses.join(' / ')}</span>
-                    </div>
-                    <div class="tag-row">
-                      {work.tags.slice(0, 3).map((tag) => (
-                        <span class="chip">{tag}</span>
-                      ))}
+                      <span>{getDisplayTagNames(work).slice(0, 2).join(' / ')}</span>
                     </div>
                   </a>
                 </article>

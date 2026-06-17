@@ -1,7 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
-import { getWorksByTagSlug, tags } from '../../lib/catalog';
+import { getPopularTags, getTagsByCategory } from '../../lib/catalog';
+
+const wakiTags = getTagsByCategory('waki');
+const analTags = getTagsByCategory('anal');
+const otherTags = getTagsByCategory('other');
+const popularTags = getPopularTags(12);
 ---
 
 <BaseLayout title="タグ一覧 | わきあなチャンネル" description="わきあなチャンネルのタグ一覧です。">
@@ -9,24 +14,63 @@ import { getWorksByTagSlug, tags } from '../../lib/catalog';
     <article class="content-panel">
       <p class="eyebrow">タグ一覧</p>
       <h1>タグ一覧</h1>
-      <p>初期タグを一覧にしています。タグ名を押すと該当作品へ移動します。</p>
+      <p>タグを押すと、そのタグに該当する作品一覧ページへ移動します。</p>
 
-      <div class="chip-row chip-row-large">
-        {tags.map((tag) => (
+      <div class="tag-cloud">
+        {popularTags.map((tag) => (
           <a class="chip chip-strong" href={`/tags/${tag.slug}/`}>
-            {tag.label}
+            {tag.name}
           </a>
         ))}
       </div>
 
-      <div class="list-grid tag-list-grid">
-        {tags.map((tag) => (
-          <a class="list-card" href={`/tags/${tag.slug}/`}>
-            <strong>{tag.label}</strong>
-            <span>{getWorksByTagSlug(tag.slug).length}作品</span>
-          </a>
-        ))}
-      </div>
+      <section class="subsection">
+        <div class="section-head compact">
+          <div>
+            <h2>脇系タグ</h2>
+          </div>
+        </div>
+        <div class="tag-card-grid">
+          {wakiTags.map((tag) => (
+            <a class="tag-card" href={`/tags/${tag.slug}/`}>
+              <strong>{tag.name}</strong>
+              <span>{tag.description}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="subsection">
+        <div class="section-head compact">
+          <div>
+            <h2>アナル系タグ</h2>
+          </div>
+        </div>
+        <div class="tag-card-grid">
+          {analTags.map((tag) => (
+            <a class="tag-card" href={`/tags/${tag.slug}/`}>
+              <strong>{tag.name}</strong>
+              <span>{tag.description}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="subsection">
+        <div class="section-head compact">
+          <div>
+            <h2>その他タグ</h2>
+          </div>
+        </div>
+        <div class="tag-card-grid">
+          {otherTags.map((tag) => (
+            <a class="tag-card" href={`/tags/${tag.slug}/`}>
+              <strong>{tag.name}</strong>
+              <span>{tag.description}</span>
+            </a>
+          ))}
+        </div>
+      </section>
     </article>
   </main>
 </BaseLayout>

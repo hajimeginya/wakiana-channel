@@ -1,30 +1,33 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
-import { getTagBySlug, getWorksByTagSlug, tags } from '../../lib/catalog';
+import { getDisplayActressNames, getDisplayTagNames, getTagBySlug, getWorksByTagSlug, tags } from '../../lib/catalog';
 
 export function getStaticPaths() {
   return tags.map((tag) => ({
     params: { slug: tag.slug },
+    props: { tag },
   }));
 }
 
-const tag = getTagBySlug(Astro.params.slug ?? '');
-const works = tag ? getWorksByTagSlug(tag.slug) : [];
+const { tag } = Astro.props;
+const entry = tag ?? getTagBySlug(Astro.params.slug ?? '');
+const works = entry ? getWorksByTagSlug(entry.slug) : [];
 ---
 
 <BaseLayout
-  title={tag ? `${tag.label} | わきあなチャンネル` : 'タグページ | わきあなチャンネル'}
-  description={tag ? tag.description : 'タグページです。'}
+  title={entry ? `${entry.name} | わきあなチャンネル` : 'タグページ | わきあなチャンネル'}
+  description={entry ? entry.description : 'タグページです。'}
 >
   <main class="content-page">
     <article class="content-panel">
-      {tag ? (
+      {entry ? (
         <>
           <p class="eyebrow">タグページ</p>
-          <h1>{tag.label}</h1>
-          <p>{tag.description}</p>
+          <h1>{entry.name}</h1>
+          <p>{entry.description}</p>
           <p>{works.length}作品</p>
+
           <div class="card-grid">
             {works.map((work) => (
               <article class="panel work-card">
@@ -32,10 +35,10 @@ const works = tag ? getWorksByTagSlug(tag.slug) : [];
                   <img src={work.package_image_url} alt={work.title} />
                   <h3>{work.title}</h3>
                   <div class="meta">
-                    <span>{work.actresses.join(' / ')}</span>
+                    <span>{getDisplayActressNames(work).join(' / ')}</span>
                   </div>
                   <div class="tag-row">
-                    {work.tags.slice(0, 3).map((item) => (
+                    {getDisplayTagNames(work).slice(0, 3).map((item) => (
                       <span class="chip">{item}</span>
                     ))}
                   </div>
